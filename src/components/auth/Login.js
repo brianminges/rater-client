@@ -1,5 +1,5 @@
 import React, { useRef } from "react"
-import { Link, useHistory } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import "./Auth.css"
 
 
@@ -7,7 +7,7 @@ export const Login = () => {
     const username = useRef()
     const password = useRef()
     const invalidDialog = useRef()
-    const history = useHistory()
+    const history = useNavigate()
 
     const handleLogin = (e) => {
         e.preventDefault()
@@ -27,7 +27,7 @@ export const Login = () => {
             .then(res => {
                 if ("valid" in res && res.valid && "token" in res) {
                     localStorage.setItem("gr_token", res.token)
-                    history.push("/")
+                    history("/games")
                 }
                 else {
                     invalidDialog.current.showModal()
@@ -46,7 +46,7 @@ export const Login = () => {
                     <h1>Gamer Rater</h1>
                     <h2>Please sign in</h2>
                     <fieldset>
-                        <label htmlFor="inputUsername"> Username address </label>
+                        <label htmlFor="inputUsername"> Username </label>
                         <input ref={username} type="username" id="username" className="form-control" placeholder="Username address" required autoFocus />
                     </fieldset>
                     <fieldset>
